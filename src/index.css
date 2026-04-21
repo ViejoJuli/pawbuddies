@@ -8,35 +8,49 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 225 15% 17%;
+    /* Paw Buddies palette
+       Neon Yellow #CCFF00 -> 72 100% 50%
+       Carbon Gray #333333 -> 0 0% 20%
+       Petrol Blue #004C54 -> 185 100% 16%
+    */
+    --background: 40 30% 98%;
+    --foreground: 185 100% 16%;
 
     --card: 0 0% 100%;
-    --card-foreground: 225 15% 17%;
+    --card-foreground: 185 100% 16%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 225 15% 17%;
+    --popover-foreground: 185 100% 16%;
 
-    --primary: 0 87% 55%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 72 100% 50%;
+    --primary-foreground: 185 100% 12%;
 
-    --secondary: 0 0% 97%;
-    --secondary-foreground: 225 15% 17%;
+    --secondary: 0 0% 20%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 0 0% 96%;
-    --muted-foreground: 220 10% 50%;
+    --muted: 40 20% 94%;
+    --muted-foreground: 185 20% 35%;
 
-    --accent: 0 87% 55%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 72 100% 50%;
+    --accent-foreground: 185 100% 12%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 0 87% 55%;
+    --border: 185 20% 88%;
+    --input: 185 20% 88%;
+    --ring: 72 100% 50%;
 
-    --radius: 2rem;
+    --petrol: 185 100% 16%;
+    --petrol-foreground: 0 0% 98%;
+    --carbon: 0 0% 20%;
+    --neon: 72 100% 50%;
+
+    --shadow-soft: 0 8px 24px -8px hsl(185 100% 16% / 0.15);
+    --shadow-lift: 0 18px 40px -12px hsl(185 100% 16% / 0.28);
+    --gradient-hero: radial-gradient(circle at 20% 20%, hsl(72 100% 50% / 0.18), transparent 60%), radial-gradient(circle at 80% 60%, hsl(185 100% 16% / 0.08), transparent 60%);
+
+    --radius: 1.25rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -49,7 +63,7 @@ All colors MUST be HSL.
   }
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Rubik:wght@400;500;600;700&display=swap');
 
 
 @layer base {
@@ -58,6 +72,6 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground font-rubik;
+    @apply bg-background text-foreground font-nunito;
   }
 }
