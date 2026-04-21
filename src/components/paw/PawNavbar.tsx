@@ -3,7 +3,12 @@ import { PawPrint, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/CartContext";
 
-const links = ["Inicio", "Productos", "Mascotas", "Comunidad"];
+const links = [
+  { label: "Inicio", href: "#inicio" },
+  { label: "Productos", href: "#productos" },
+  { label: "Comunidad", href: "#comunidad" },
+  { label: "Blog", href: "#blog" },
+];
 
 const PawNavbar = () => {
   const { count, open } = useCart();
@@ -25,9 +30,12 @@ const PawNavbar = () => {
 
         <ul className="hidden md:flex items-center gap-8">
           {links.map((l) => (
-            <li key={l}>
-              <a href="#" className="text-petrol/80 font-semibold hover:text-petrol transition-colors story-link">
-                {l}
+            <li key={l.href}>
+              <a
+                href={l.href}
+                className="text-petrol/80 font-semibold hover:text-petrol transition-colors story-link"
+              >
+                {l.label}
               </a>
             </li>
           ))}
