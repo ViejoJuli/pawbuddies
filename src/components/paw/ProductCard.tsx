@@ -1,14 +1,20 @@
-import { motion } from "framer-motion";
-import { Heart, Plus } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Check, Heart, Loader2, Plus } from "lucide-react";
 import confetti from "canvas-confetti";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Product, useCart } from "@/context/CartContext";
 
 const ProductCard = ({ product }: { product: Product }) => {
   const { add, open } = useCart();
   const btnRef = useRef<HTMLButtonElement>(null);
+  const [status, setStatus] = useState<"idle" | "loading" | "added">("idle");
 
   const handleAdd = () => {
+    if (status !== "idle") return;
+    setStatus("loading");
+
+    // Simulación de petición async
+    setTimeout(() => {
     add(product);
     const rect = btnRef.current?.getBoundingClientRect();
     if (rect) {
@@ -24,7 +30,10 @@ const ProductCard = ({ product }: { product: Product }) => {
         scalar: 0.9,
       });
     }
-    setTimeout(() => open(), 250);
+      setStatus("added");
+      setTimeout(() => open(), 350);
+      setTimeout(() => setStatus("idle"), 1600);
+    }, 700);
   };
 
   return (
@@ -65,12 +74,54 @@ const ProductCard = ({ product }: { product: Product }) => {
           <motion.button
             ref={btnRef}
             onClick={handleAdd}
-            whileTap={{ scale: 0.9 }}
-            whileHover={{ scale: 1.05 }}
-            className="inline-flex items-center gap-1.5 bg-petrol text-petrol-foreground hover:bg-carbon font-bold text-sm px-4 py-2.5 rounded-full transition-colors"
+            disabled={status !== "idle"}
+            whileTap={{ scale: status === "idle" ? 0.9 : 1 }}
+            whileHover={{ scale: status === "idle" ? 1.05 : 1 }}
+            className={`inline-flex items-center justify-center gap-1.5 font-bold text-sm px-4 py-2.5 rounded-full transition-colors min-w-[120px] overflow-hidden ${
+              status === "added"
+                ? "bg-neon text-petrol"
+                : "bg-petrol text-petrol-foreground hover:bg-carbon"
+            } disabled:cursor-default`}
             aria-label={`Añadir ${product.name} al carrito`}
           >
-            <Plus className="w-4 h-4" /> Añadir
+            <AnimatePresence mode="wait" initial={false}>
+              {status === "idle" && (
+                <motion.span
+                  key="idle"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.18 }}
+                  className="inline-flex items-center gap-1.5"
+                >
+                  <Plus className="w-4 h-4" /> Añadir
+                </motion.span>
+              )}
+              {status === "loading" && (
+                <motion.span
+                  key="loading"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.18 }}
+                  className="inline-flex items-center gap-1.5"
+                >
+                  <Loader2 className="w-4 h-4 animate-spin" /> Cargando…
+                </motion.span>
+              )}
+              {status === "added" && (
+                <motion.span
+                  key="added"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.18 }}
+                  className="inline-flex items-center gap-1.5"
+                >
+                  <Check className="w-4 h-4" /> ¡Añadido!
+                </motion.span>
+              )}
+            </AnimatePresence>
           </motion.button>
         </div>
       </div>
