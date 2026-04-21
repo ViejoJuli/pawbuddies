@@ -1,16 +1,21 @@
-import Navbar from "@/components/Navbar";
-import HeroSection from "@/components/HeroSection";
-import StatsSection from "@/components/StatsSection";
-import FeaturesSection from "@/components/FeaturesSection";
+import PawNavbar from "@/components/paw/PawNavbar";
+import PawHero from "@/components/paw/PawHero";
+import FeaturedProducts from "@/components/paw/FeaturedProducts";
+import CartDrawer from "@/components/paw/CartDrawer";
+import { CartProvider } from "@/context/CartContext";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar />
-      <HeroSection />
-      <StatsSection />
-      <FeaturesSection />
-    </div>
+    <CartProvider>
+      <div className="min-h-screen bg-background">
+        <PawNavbar />
+        <main>
+          <PawHero />
+          <FeaturedProducts />
+        </main>
+        <CartDrawer />
+      </div>
+    </CartProvider>
   );
 };
 
