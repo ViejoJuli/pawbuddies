@@ -46,7 +46,7 @@ const PawHero = () => {
 
           <motion.h1
             variants={item}
-            className="text-3xl/1.15 sm:text-5xl/1.15 md:text-6xl/1.15 font-black text-petrol"
+            className="text-3xl sm:text-5xl md:text-6xl font-black !leading-[1.15] text-petrol"
           >
             Todo lo que tu{" "}
             <span className="relative isolate inline-block px-2 before:absolute before:inset-x-0 before:top-[0.2em] before:bottom-[0.16em] before:-z-10 before:rounded-lg before:bg-neon before:content-['']">
